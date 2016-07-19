@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <title>My CSS page</title>
+	 <style type="text/css">
+	 
+	 .hid
+	 {
+	 color:red;
+	 }
+	 
+	 #pid
+	 {
+	 background-color:blue;
+	 color:white;
+	 }
+	
+	 .p2{
+	 padding:15px;
+	 background-color:orange;
+	 margin:3px;
+	 
+	 }
+	
+	 
+	  #pabsolute{
+	 position:absolute
+	 top:590px;
+	 
+	 }
+	  #prelative{
+	 position:relative;
+	 top:250px;
+	 left:50px;
+	 }
+	  #pfixed{
+	 position:fixed;
+	 }
+	.navigation ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+	}
+	
+	.navigation li:hover ul{
+	
+	visibility:visible;
+	}
+	.navigation li{
+	float:left;
+	width:100px;
+	background-color:yellow;
+	
+	border-right:1px solid green
+	}
+	
+	.navigation li:hover{
+	background-color:red;
+	}
+	
+	.navigation li ul li
+	{
+	float:none;
+	width:150px;
+	padding-left:5px;
+	border-top:1px solid green
+	}
+	//to remove under line
+	.navigation a{
+	text-decoration:none;
+	}
+	
+	
+	#pcenter{
+	background-color:orange;
+	text-alignment:center;
+	margin-left:auto;
+	margin-right:auto;
+	width:200px
+	}
+	 </style>
+	 
+	</head>
+	<body>
+	<h1 style="text-align:center; color:green">Welcome</h1>
+	<h2 class="hid">Hello Chinku Boss !!</h2>
+	<p id="pid">Good Evening, This is my css page</p>
+	
+	<h3>My h3 first element</h3>
+	<p class="p2">This is paragraph,Welcome to every one,Have a nice day!!</p>
+
+	  <h1>Heading section</h1>
+	    <div class="navigation">
+		  <ul>
+		    <li><a href="home.html">Home</a></li>
+			<li><a href="photo.html">Photos</a>
+			<ul>
+			     <li><a href="abc.html">Sweden</a></li>
+				 <li><a href="paris.html">Paris</a></li>
+				 <li><a href="adisney.html">Disney Land</a></li>
+			</ul>
+			</li>
+			<li><a href="contact.html">Contact</a></li>
+		   </ul>
+			</div>
+				 
+			<p id="pcenter">Hello this my new paragraph.....welcome.This is css page for practice.
+			
+			have a nice day !!!</p>
+	
+	   <p id="pstatic">this is static</p>
+	    <p id="prelative">this is prelative</p>
+		<p id="pabsolute">this is pabsolute</p>
+		<p id="pfixed">this is pfixed</p>
+	
+	</body>
+</html>
