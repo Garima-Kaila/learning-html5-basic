@@ -111,8 +111,8 @@ function handleMouseMove(e) {
 
         mouseX = parseInt(e.clientX - offsetX);
         mouseY = parseInt(e.clientY - offsetY);
-        var imgright, imgbottom;
-        shape.resizeShapeFunc(mouseX, mouseY);
+        var imgright=0, imgbottom;
+        shape.resizeShapeFunc(mouseX, mouseY,draggingResizer,imgright,imgbottom);
 
         // redraw the image with resizing anchors
         shape.draw(true);
@@ -127,7 +127,8 @@ function handleMouseMove(e) {
         // move the image by the amount of the latest drag
         var dx = mouseX - startX;
         var dy = mouseY - startY;
-        shape.imageResizeDrag(dx, dy);
+        var imgrt,imght;
+        shape.imageResizeDrag(dx, dy,imgrt,imght);
         // reset the startXY for next time
         startX = mouseX;
         startY = mouseY;

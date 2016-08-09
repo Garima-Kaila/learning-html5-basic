@@ -9,12 +9,9 @@
             this.img = 0;
         }
 
-        // imageRight = imageX + imageWidth;
-        //imageBottom = imageY + imageHeight
-
-        Shape.prototype.draw = function (withAnchors) {
-
-            //  ctx.clearRect(0, 0, canvas.width, canvas.height);
+            Shape.prototype.draw = function (withAnchors) {
+;
+             // ctx.clearRect(0, 0, this.w + 2, this.h + 2);
             ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
 
             if (withAnchors) {
@@ -24,13 +21,6 @@
                 drawDragAnchor(this.x, (this.y + this.h));
             }
         };
-
-        //function drawDragAnchor(x, y) {
-        //    ctx.beginPath();
-        //    ctx.arc(x, y, resizerRadius, 0, 2 * Math.PI, false);
-        //    ctx.closePath();
-        //    ctx.fill();
-        //}
 
         Shape.prototype.createBorder = function () {
             ctx.strokeRect(this.x, this.y, this.w, this.h);
@@ -43,7 +33,7 @@
         };
 
         Shape.prototype.hitImage = function (startX, startY) {
-            return (startX > this.x && startX < this.x + this.w && startY > this.y && startY < this.y + this.h);
+            return (startX > this.x && startX < (this.x + this.w) && startY > this.y && startY < (this.y + this.h));
         };
 
         Shape.prototype.anchorHitTest = function (startX, startY) {
@@ -76,14 +66,14 @@
             return (-1);
         };
 
-        Shape.prototype.resizeShapeFunc = function (mouseX, mouseY) {
+        Shape.prototype.resizeShapeFunc = function (mouseX, mouseY,draggingResizer,imgright,imgbottom) {
 
         // resize the image
             switch (draggingResizer) {
                 case 0:
                     //top-left
                     this.x = mouseX;
-                    this.w = (this.x + this.x) - mouseX;
+                    this.w = (this.x + this.w) - mouseX;
                     this.y = mouseY;
                     this.h = (this.y + this.h) - mouseY;
                     break;
@@ -119,10 +109,12 @@
         };
 
 
-        Shape.prototype.imageResizeDrag = function (dx, dy) {
+        Shape.prototype.imageResizeDrag = function (dx, dy,imgrt,imght) {
             this.x += dx;
             this.y += dy;
-            this.r += dx;
-            this.h += dy;
+            imgrt=  this.x + this.w;
+            imgrt += dx;
+            imght= this.y+this.h;
+            imght += dy;
 
         };
