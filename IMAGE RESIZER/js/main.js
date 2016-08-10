@@ -9,6 +9,9 @@ imgCircle.src = "./images/circle.png";
 var imgRect = new Image();
 imgRect.src = "./images/rect.png";
 
+var imgTrang = new Image();
+imgTrang.src = "./images/triangle.png";
+
 var resizerRadius = 2;
 var rr = resizerRadius * resizerRadius;
 var draggingImage = false;
@@ -21,7 +24,7 @@ function drawCircle() {
     circle.h = 100 * Math.random();
     circle.img = imgCircle;
     shapes.push(circle);
-    circle.draw(true);
+
 
 }
 
@@ -33,13 +36,62 @@ function drawRectangle() {
     rect.h = 100 * Math.random();
     rect.img = imgRect;
     shapes.push(rect);
-    rect.draw(true);
+
+}
+
+function drawTriangle() {
+    var trang = new Shape();
+    trang.x = 100 * Math.random();
+    trang.y = 100 * Math.random();
+    trang.w = 100 * Math.random();
+    trang.h = 100 * Math.random();
+    trang.img = imgTrang;
+    shapes.push(trang);
+
+}
+
+
+function drawShape() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var idx = 0; idx < shapes.length; idx++) {
+        var shape = shapes[idx];
+        shape.draw(true);
+    }
+
+    // call the draw function again!
+    requestAnimationFrame(drawShape);
+}
+drawShape();
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    data = ev.dataTransfer.getData("text");
+    if (data === "rectangle") {
+        drawRectangle();
+    }
+    else if (data === "circle") {
+        drawCircle();
+    }
+
+    else if (data === "triangle") {
+        drawTriangle();
+    }
+
+    ev.target.appendChild(document.getElementById(data));
 }
 
 
 // get canvas onclick coordinates
-
 canvas.addEventListener("mousedown", getPosition, false);
+
 
 var xPost, yPost;
 var shape;
@@ -68,11 +120,13 @@ function getPosition(event) {
     //ctx.clearRect(0,0,canvas.width,canvas.height);
     for (var idx = 0; idx < shapes.length; idx++) {  //c1,c2,c3
         shape = shapes[idx];
+
         if (shape.amIClicked(xPost, yPost) && shapeOnWhichBorderIsShown == null) {
             shapeOnWhichBorderIsShown = shape;  //c3
         }
         shape.clearBorder();
-        shape.draw(true);
+        // shape.draw(true);
+
     }
 
     if (shapeOnWhichBorderIsShown != null) {
@@ -80,7 +134,6 @@ function getPosition(event) {
     }
 
 }
-
 
 var offsetX = canvas.offsetLeft;
 var offsetY = canvas.offsetTop;
@@ -100,8 +153,13 @@ function drawDragAnchor(x, y) {
 function handleMouseDown(e) {
     startX = parseInt(e.clientX - offsetX);
     startY = parseInt(e.clientY - offsetY);
-    draggingResizer = shape.anchorHitTest(startX, startY);
-    draggingImage = draggingResizer < 0 && shape.hitImage(startX, startY);
+    for (var idx = 0; idx < shapes.length; idx++) {  //c1,c2,c3
+        shape = shapes[idx];
+
+        draggingResizer = shape.anchorHitTest(startX, startY);
+        draggingImage = draggingResizer < 0 && shape.hitImage(startX, startY);
+
+    }
 }
 
 
@@ -111,11 +169,11 @@ function handleMouseMove(e) {
 
         mouseX = parseInt(e.clientX - offsetX);
         mouseY = parseInt(e.clientY - offsetY);
-        var imgright=0, imgbottom;
-        shape.resizeShapeFunc(mouseX, mouseY,draggingResizer,imgright,imgbottom);
+        var imgright, imgbottom;
+        shape.resizeShapeFunc(mouseX, mouseY, draggingResizer, imgright, imgbottom);
 
         // redraw the image with resizing anchors
-        shape.draw(true);
+        // shape.draw(true);
 
     } else if (draggingImage) {
 
@@ -127,15 +185,16 @@ function handleMouseMove(e) {
         // move the image by the amount of the latest drag
         var dx = mouseX - startX;
         var dy = mouseY - startY;
-        var imgrt,imght;
-        shape.imageResizeDrag(dx, dy,imgrt,imght);
+        var imgrt, imgbt;
+
+        shape.imageResizeDrag(dx, dy, imgrt, imgbt);
         // reset the startXY for next time
         startX = mouseX;
         startY = mouseY;
+        console.log("new xCord::" + startX + "," + "new Ycord::" + startY);
 
         // redraw the image
-        shape.draw(false);
-
+        // shape.draw(false);
     }
 
 }
@@ -143,7 +202,7 @@ function handleMouseMove(e) {
 function handleMouseUp(e) {
     draggingResizer = -1;
     draggingImage = false;
-    shape.draw(true);
+    //  shape.draw(true);
 }
 
 function handleMouseOut(e) {

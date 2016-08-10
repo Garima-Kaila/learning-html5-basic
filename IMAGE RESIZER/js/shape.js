@@ -10,7 +10,7 @@
         }
 
             Shape.prototype.draw = function (withAnchors) {
-;
+
              // ctx.clearRect(0, 0, this.w + 2, this.h + 2);
             ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
 
@@ -109,12 +109,12 @@
         };
 
 
-        Shape.prototype.imageResizeDrag = function (dx, dy,imgrt,imght) {
+        Shape.prototype.imageResizeDrag = function (dx, dy,imgrt,imgbt) {
             this.x += dx;
             this.y += dy;
             imgrt=  this.x + this.w;
             imgrt += dx;
-            imght= this.y+this.h;
-            imght += dy;
+            imgbt= this.y+this.h;
+            imgbt += dy;
 
         };
