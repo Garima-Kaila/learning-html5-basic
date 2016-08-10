@@ -1,31 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Image Resizer</title>
-    <style>
-        .header {
-            float: left;
-        }
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Image Resizer</title>
+            <style>
 
-        .dvDestination {
-            margin-top: 80px;
-            float: right;
-        }
-    </style>
-</head>
-<body>
-<div class="header"><h1 style="color:green">Local Storage Demo</h1>
-</div>
+                .header {
+            color:green;
+                    text-align: center;
+                }
 
-<div class="leftPanel">
-    <a onclick="drawCircle()">Circle</a><br>
-    <a onclick="drawRectangle()">Rectangle</a>
-</div>
-<div class="rightPanel">
-    <canvas id="canImageResize" width="500" height="500"  style="border:1px solid"></canvas>
-</div>
-<script src="js/shape.js"></script>
-<script src="js/main.js"></script>
+                .leftPanel {
+                    float: left;
+                }
+                .shapedrag{
 
-</body>
-</html>
+                    color:darkblue;
+                }
+
+                .rightPanel {
+                    margin-top: 0px;
+                       float: right;
+                }
+            </style>
+        </head>
+        <body>
+        <div class="header"><h1>Canvas Image Resizing</h1>
+        </div>
+
+        <div class="leftPanel">
+          <!-- <a onclick="drawCircle()">Circle</a><br>
+            <a onclick="drawRectangle()">Rectangle</a> -->
+            <img id="rectangle" src="./images/rect.png" draggable="true" ondragstart="drag(event)"><br>
+            <img id="circle" src="./images/circle.png" draggable="true" ondragstart="drag(event)"><br>
+            <img id="triangle" src="./images/triangle.png" draggable="true" ondragstart="drag(event)">
+        </div>
+        <div class="rightPanel">
+            <h2 class="shapedrag">Drag Shapes Here !!</h2>
+
+            <canvas id="canImageResize" width="700" height="500" style="border:1px solid" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+            </canvas>
+        </div>
+        <script src="js/shape.js"></script>
+        <script src="js/main.js"></script>
+
+        </body>
+        </html>
