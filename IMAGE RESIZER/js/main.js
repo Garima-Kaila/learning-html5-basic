@@ -117,10 +117,16 @@ function getPosition(event) {
 
     console.log("x: " + xPost + "  y: " + yPost);
     var shapeOnWhichBorderIsShown = null;
+
     //ctx.clearRect(0,0,canvas.width,canvas.height);
     for (var idx = 0; idx < shapes.length; idx++) {  //c1,c2,c3
         shape = shapes[idx];
 
+        draggingResizer = shape.anchorHitTest(xPost, yPost);
+        draggingImage = draggingResizer < 0 && shape.hitImage(xPost, yPost);
+
+        console.log(draggingResizer);
+        console.log(draggingImage);
         if (shape.amIClicked(xPost, yPost) && shapeOnWhichBorderIsShown == null) {
             shapeOnWhichBorderIsShown = shape;  //c3
         }
@@ -132,7 +138,7 @@ function getPosition(event) {
     if (shapeOnWhichBorderIsShown != null) {
         shapeOnWhichBorderIsShown.createBorder();
     }
-
+ //   handleMouseDown(event);
 }
 
 var offsetX = canvas.offsetLeft;
@@ -150,17 +156,17 @@ function drawDragAnchor(x, y) {
     ctx.closePath();
     ctx.fill();
 }
-function handleMouseDown(e) {
-    startX = parseInt(e.clientX - offsetX);
-    startY = parseInt(e.clientY - offsetY);
-    for (var idx = 0; idx < shapes.length; idx++) {  //c1,c2,c3
-        shape = shapes[idx];
-
-        draggingResizer = shape.anchorHitTest(startX, startY);
-        draggingImage = draggingResizer < 0 && shape.hitImage(startX, startY);
-
-    }
-}
+//function handleMouseDown(e) {
+//    startX = parseInt(e.clientX - offsetX);
+//    startY = parseInt(e.clientY - offsetY);
+//    for (var idx = 0; idx < shapes.length; idx++) {  //c1,c2,c3
+//        shape = shapes[idx];
+//
+//        draggingResizer = shape.anchorHitTest(startX, startY);
+//        draggingImage = draggingResizer < 0 && shape.hitImage(startX, startY);
+//
+//    }
+//}
 
 
 function handleMouseMove(e) {
@@ -210,16 +216,8 @@ function handleMouseOut(e) {
 }
 
 
-document.body.onmousedown = function (e) {
-    handleMouseDown(e);
-}
-document.body.onmousemove = function (e) {
-    handleMouseMove(e);
-}
-document.body.onmouseup = function (e) {
-    handleMouseUp(e);
-}
-document.body.onmouseout = function (e) {
-    handleMouseOut(e);
-}
+canvas.addEventListener("mousemove", handleMouseMove, false);
+canvas.addEventListener("mouseup", handleMouseUp, false);
+canvas.addEventListener("mouseout", handleMouseOut, false);
+
 
